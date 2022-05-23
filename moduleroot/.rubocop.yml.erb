@@ -57,27 +57,4 @@ path = File.exist?(dynamic_path) ? dynamic_path : default_path
 
 require 'yaml'
 config_defaults = YAML.load(File.read(path))
-p config_defaults
-<%# default_enabled_cops = config_defaults[:default_enabled_cops] || [] %>
-p 'got here'
-default_pending_cops = config_defaults[:default_pending_cops] || []
-
-cop_configs = (profile['enabled_cops'] || {})
-
-if cop_configs == 'all'
-  enabled_cops = default_enabled_cops + default_pending_cops
-elsif cop_configs.respond_to?(:keys)
-  enabled_cops = cop_configs.keys
-else
-  enabled_cops = []
-end
-
-(enabled_cops & default_enabled_cops).sort.each { |c| configs[c] ||= cop_configs[c] if cop_configs[c] }
-(enabled_cops - default_enabled_cops).sort.each { |c| configs[c] ||= cop_configs[c] || {}; configs[c]['Enabled'] = true }
-(default_enabled_cops - enabled_cops).sort.each { |c| configs[c] ||= cop_configs[c] || {}; configs[c]['Enabled'] = false }
-
-# force set pending cops to something to avoid the messages
-(default_pending_cops & enabled_cops).sort.each { |c| configs[c] ||= cop_configs[c] if cop_configs[c]; configs[c]['Enabled'] = true }
-(default_pending_cops - enabled_cops).sort.each { |c| configs[c] = { 'Enabled' => false } }
--%>
 <%= YAML.dump(configs) -%>
