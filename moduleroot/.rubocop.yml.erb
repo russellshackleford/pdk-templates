@@ -51,8 +51,8 @@ end
 # this allows them to use that configuration.
 # If the rubocop version is not installed, fall back to the default
 base_path = File.join(__FILE__, '..', '..', 'rubocop')
-p 'got here'
 dynamic_path = File.absolute_path(File.join(base_path, "defaults-#{version}.yml"))
+p 'got here'
 default_path = File.absolute_path(File.join(base_path, "defaults-#{default_version}.yml"))
 path = File.exist?(dynamic_path) ? dynamic_path : default_path
 
