@@ -53,10 +53,10 @@ end
 base_path = File.join(__FILE__, '..', '..', 'rubocop')
 dynamic_path = File.absolute_path(File.join(base_path, "defaults-#{version}.yml"))
 default_path = File.absolute_path(File.join(base_path, "defaults-#{default_version}.yml"))
-p 'got here'
 path = File.exist?(dynamic_path) ? dynamic_path : default_path
 
 require 'yaml'
+p 'got here'
 config_defaults = YAML.load(File.read(path))
 default_enabled_cops = config_defaults[:default_enabled_cops] || []
 default_pending_cops = config_defaults[:default_pending_cops] || []
