@@ -58,7 +58,7 @@ path = File.exist?(dynamic_path) ? dynamic_path : default_path
 require 'yaml'
 config_defaults = YAML.load(File.read(path))
 p config_defaults
-default_enabled_cops = config_defaults[:default_enabled_cops] || []
+<%# default_enabled_cops = config_defaults[:default_enabled_cops] || [] %>
 p 'got here'
 default_pending_cops = config_defaults[:default_pending_cops] || []
 
