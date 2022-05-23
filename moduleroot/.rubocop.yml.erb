@@ -56,5 +56,5 @@ default_path = File.absolute_path(File.join(base_path, "defaults-#{default_versi
 path = File.exist?(dynamic_path) ? dynamic_path : default_path
 
 require 'yaml'
-config_defaults = YAML.load(File.read(path))
+config_defaults = YAML.load(File.read(path))%>
 <%= YAML.dump(configs) -%>
