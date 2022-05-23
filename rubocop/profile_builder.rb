@@ -19,7 +19,7 @@ def report_cops(cops, msg)
 end
 
 def load_config
-  YAML.safe_load(`rubocop --show-cops --require rubocop-rspec --require rubocop-performance`)
+  YAML.load_file('/home/archaic/.repos/oz-vault/.rubocop.yml')
 end
 
 File.delete('.rubocop.yml') if File.exist?('.rubocop.yml')
@@ -30,12 +30,12 @@ all_cops = default_configs.keys - ['AllCops', 'require', 'Lint/Syntax']
 default_cops = all_cops.group_by { |c| default_configs[c]['Enabled'] }
 report_cops(default_cops, 'the rubocop config')
 
-File.open("defaults-#{RuboCop::Version.version}.yml", 'wb') do |f|
-  f.puts YAML.dump(
-    default_enabled_cops: default_cops[true].sort,
-    default_pending_cops: default_cops['pending'].sort
-  )
-end
+# File.open("defaults-#{RuboCop::Version.version}.yml", 'wb') do |f|
+#   f.puts YAML.dump(
+#     default_enabled_cops: default_cops[true].sort,
+#     default_pending_cops: default_cops['pending'].sort
+#   )
+# end
 
 # # fetch config from current PDK.  Assume it's in the same directory as this repo.
 # FileUtils.cp(File.join('..', '..', 'pdk', '.rubocop.yml'), '.')
